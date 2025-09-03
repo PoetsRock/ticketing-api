@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id                 String    @id @default(uuid())
+  numSeats           Int
+  seatsId            String[]
+  createdAt          DateTime  @default(now())
+  modifiedAt         DateTime  @updatedAt
+  eventName          String?
+  eventLocation      String?
+  eventDateTimeStamp DateTime?
+  seatHoldTime       Int?
+
+  seats Seat[]
+
+  @@map("events")
+}
+
+model Seat {
+  id              String     @id @default(uuid())
+  eventId         String
+  price           String
+  status          SeatStatus @default(OPEN)
+  assignedSeating Boolean    @default(false)
+  modifiedAt      DateTime   @updatedAt
+  customerId      String?
+  row             String?
+  seatNumber      String?
+  section         String?
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("seats")
+}
+
+model Customer {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  modifiedAt    DateTime @updatedAt
+  seatsOnHold   String[]
+  seatsReserved String[]
+  firstName     String?
+  lastName      String?
+
+  @@map("customers")
+}
+
+enum SeatStatus {
+  OPEN
+  ON_HOLD
+  RESERVED
+}
