@@ -1,6 +1,5 @@
-import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Redis } from 'ioredis';
-import { SEAT_STATUS } from '../common/types';
 import { PrismaService } from '../prisma/prisma.service';
 
 export const HoldSeatPrefix = 'hold:seat:';
@@ -24,6 +23,7 @@ export class RedisExpirationSubscriber implements OnModuleInit {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     this.subscriber.on('message', this.handleExpiredKey.bind(this));
   }
 

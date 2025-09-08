@@ -9,6 +9,15 @@ export class EventsController {
 
   @Post()
   create(@Body() createEventDto: CreateEventDto) {
+    if (createEventDto.numSeats < 10 || createEventDto.numSeats > 1000) {
+      throw new Error(
+        `An event must have at least 10 seats and cannot have more than 1000. You tried to create an event with ${createEventDto.numSeats} seats.`,
+      );
+    }
+
+    if (!createEventDto.maxNumSeats) {
+      createEventDto.maxNumSeats = 0;
+    }
     return this.eventsService.create(createEventDto);
   }
 

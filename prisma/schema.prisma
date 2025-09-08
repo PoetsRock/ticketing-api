@@ -16,6 +16,7 @@ datasource db {
 model Event {
   id                 String    @id @default(uuid())
   numSeats           Int
+  maxNumSeats        Int
   seatsId            String[]
   createdAt          DateTime  @default(now())
   modifiedAt         DateTime  @updatedAt

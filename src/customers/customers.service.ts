@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuidV4 } from 'uuid';
-import {
-  CreateCustomerDto,
-  UpdateCustomerDto,
-} from '../common/types/customers';
+import { CreateCustomerDto } from '../common/types/customers';
 import { PrismaService } from '../prisma/prisma.service';
 import { CustomerEntity } from './entities/customer.entity';
 
@@ -25,21 +22,5 @@ export class CustomersService {
     });
     console.log('new customer created:\n', customer);
     return customer;
-  }
-
-  findAll() {
-    return `This action returns all customers`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
-  }
-
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} customer`;
   }
 }

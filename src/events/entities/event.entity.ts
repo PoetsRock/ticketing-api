@@ -7,6 +7,7 @@ export class EventEntity implements IEvent {
   public id: string;
   public modifiedAt: Date;
   public numSeats: number;
+  public maxNumSeats: number;
   public eventDateTimeStamp?: Date;
   public seatHoldTime: number;
   public seatsId: string[];

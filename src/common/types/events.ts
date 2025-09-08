@@ -3,16 +3,9 @@ import { IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export type EventId = string;
 
-export interface Location {
-  address1: string;
-  address2?: string;
-  city: string;
-  country: string;
-  postcode: string;
-}
-
 export interface EventReq {
   numSeats: number;
+  maxNumSeats?: number;
   eventName?: string;
   eventDateTimeStamp?: Date;
   eventLocation?: string;
@@ -29,6 +22,10 @@ export interface IEvent extends EventReq {
 export class CreateEventDto implements EventReq {
   @IsNumber()
   numSeats: number;
+
+  @IsOptional()
+  @IsNumber()
+  maxNumSeats?: number;
 
   @IsOptional()
   @IsString()

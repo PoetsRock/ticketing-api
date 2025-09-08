@@ -14,6 +14,7 @@ async function bootstrap() {
       logger: true,
     }),
     {
+      snapshot: true,
       logger: new ConsoleLogger({
         prefix: 'tickets',
         json: true,

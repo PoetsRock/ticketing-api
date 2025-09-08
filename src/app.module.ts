@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomersModule } from './customers/customers.module';
@@ -12,6 +13,9 @@ import { SeatsModule } from './seats/seats.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production',
     }),
     PrismaModule,
     EventsModule,
